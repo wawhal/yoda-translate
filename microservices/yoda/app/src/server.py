@@ -220,7 +220,7 @@ def yodaTranslate(sentence):
         else:
             sentenceSubject = sentenceSubject + token["text"]["content"] + ' '
         if (token["partOfSpeech"]["tag"] == 'VERB' and verbIndex == -1):
-            verbIndex = i
+            verbIndex = index
 
 
     yodaSentence = sentenceObject + sentenceSubject
