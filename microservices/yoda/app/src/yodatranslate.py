@@ -41,7 +41,7 @@ def yodaTranslate(sentence):
 
     if (numOfWords < 4):
         return 'Yoda does not speak such short sentences'
-    if(tokens[index]["partOfSpeech"]["tag"] == 'VERB' && verbIndex >= numOfWords/2):
+    if(tokens[index]["partOfSpeech"]["tag"] == 'VERB' and verbIndex >= numOfWords/2):
         return 'Hmmm .. This sentence already seems yodified.'
     if (verbIndex < 1):
         return 'Does not seem to be a valid "Yodifyable" sentence.'
