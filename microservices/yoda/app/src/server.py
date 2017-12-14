@@ -53,7 +53,7 @@ def confirm():
 
 def sendConfirmation(id, message, responseUrl):
     payload = {
-        "text": "Are you sure you want to send a message?",
+        "text": "Yodify this sentence?",
         "attachments": [
             {
                 "text": '"'+message+'"',
@@ -196,6 +196,9 @@ def sendSlackMessage(message, channel):
     return message
 
 def yodaTranslate(sentence):
+
+    # This function makes use of Google Language API to Yoda translate your sentence
+
     payload = {
       "encodingType": "UTF8",
       "document": {
@@ -206,12 +209,12 @@ def yodaTranslate(sentence):
     response = requests.request("POST", googleNLPUrl, data=json.dumps(payload))
     tokens = response.json()["tokens"]
 
-    i = -1
+    index = -1
     verbIndex = -1
     sentenceObject = ''
     sentenceSubject = ''
     for token in tokens:
-        i = i + 1
+        index = index + 1
         if (verbIndex != -1):
             sentenceObject = sentenceObject + token["text"]["content"] + ' '
         else:
@@ -222,7 +225,10 @@ def yodaTranslate(sentence):
 
     yodaSentence = sentenceObject + sentenceSubject
 
-    resp = yodaSentence.capitalize()
-    return resp
+    if (verbIndex != -1):
+        resp = yodaSentence.capitalize()
+        return resp
+    else:
+        return "Doesn't seem to be a valid sentence."
 
 
