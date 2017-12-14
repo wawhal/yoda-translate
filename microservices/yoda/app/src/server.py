@@ -176,7 +176,7 @@ def fetchFromDBAndSend(id, channel):
     respObj = resp.json()
     print(respObj)
     message = respObj[0]["message"]
-    return sendSlackMessage(yodaTranslate(message), channel)
+    return sendSlackMessage(yodatranslate.yodaTranslate(message), channel)
 
 def sendSlackMessage(message, channel):
     payload = {
