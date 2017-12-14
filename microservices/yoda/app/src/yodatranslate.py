@@ -19,6 +19,7 @@ def yodaTranslate(sentence):
       }
     }
     response = requests.request("POST", googleNLPUrl, data=json.dumps(payload))
+    print(response.json())
     tokens = response.json()["tokens"]
 
     index = -1
