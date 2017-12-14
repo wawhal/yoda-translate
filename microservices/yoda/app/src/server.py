@@ -184,7 +184,7 @@ def sendSlackMessage(message, channel):
     payload = {
         "token": botAccessToken,
         "text": message,
-        "channel": channel
+        "channel": channel,
         "as_user": True
     }
     headers = {
