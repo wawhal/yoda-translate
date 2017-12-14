@@ -10,6 +10,7 @@ def yodaTranslate(sentence):
     # This function makes use of Google Language API to Yoda translate your sentence
 
     sentence = cleanUpSentence(sentence)
+    print ("sentence:"+sentence)
 
     payload = {
       "encodingType": "UTF8",
