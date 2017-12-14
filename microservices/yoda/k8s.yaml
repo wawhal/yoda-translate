@@ -31,6 +31,11 @@ items:
               secretKeyRef:
                 key: bot.access.token
                 name: hasura-secrets
+          - name: NLP_API_KEY
+            valueFrom:
+              secretKeyRef:
+                key: nlp.api.key
+                name: hasura-secrets
           imagePullPolicy: IfNotPresent
           name: yoda
           ports:

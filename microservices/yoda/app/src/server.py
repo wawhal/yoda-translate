@@ -10,6 +10,8 @@ slackToken = os.environ['SLACK_TOKEN']
 botAccessToken = os.environ['BOT_ACCESS_TOKEN']
 hasuraDataUrl = "http://data.hasura/v1/query"
 chatUrl = "https://slack.com/api/chat.postMessage"
+googleNLPAPIKey = os.environ['NLP_API_KEY']
+googleNLPUrl = 'https://language.googleapis.com/v1/documents:analyzeSyntax?key='+googleNLPAPIKey
 
 ##################### APIs ######################
 
@@ -176,7 +178,7 @@ def fetchFromDBAndSend(id, channel):
     respObj = resp.json()
     print(respObj)
     message = respObj[0]["message"]
-    return sendSlackMessage(yodatranslate.yodaTranslate(message), channel)
+    return sendSlackMessage(yodaTranslate(message), channel)
 
 def sendSlackMessage(message, channel):
     payload = {
@@ -192,3 +194,35 @@ def sendSlackMessage(message, channel):
     response = requests.request("POST", chatUrl, data=json.dumps(payload), headers=headers)
     print(response.json())
     return message
+
+def yodaTranslate(sentence):
+    payload = {
+      "encodingType": "UTF8",
+      "document": {
+        "type": "PLAIN_TEXT",
+        "content": sentence
+      }
+    }
+    response = requests.request("POST", googleNLPUrl, data=json.dumps(payload))
+    tokens = response.json()["tokens"]
+
+    i = -1
+    verbIndex = -1
+    sentenceObject = ''
+    sentenceSubject = ''
+    for token in tokens:
+        i = i + 1
+        if (verbIndex != -1):
+            sentenceObject = sentenceObject + token["text"]["content"] + ' '
+        else:
+            sentenceSubject = sentenceSubject + token["text"]["content"] + ' '
+        if (token["partsOfSpeech"]["tag"] == 'VERB' and verbIndex == -1):
+            verbIndex = i
+
+
+    yodaSentence = sentenceObject + sentenceSubject
+
+    resp = yodaSentence.capitalize()
+    return resp
+
+
