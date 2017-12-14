@@ -1,44 +1,55 @@
-from google.cloud import language
-from google.cloud.language import enums
-from google.cloud.language import types
-import six
+import requests
+import json
+import os
 
+googleNLPAPIKey = os.environ['NLP_API_KEY']
+googleNLPUrl = 'https://language.googleapis.com/v1/documents:analyzeSyntax?key='+googleNLPAPIKey
 
-def yodaTranslate(text):
-	client = language.LanguageServiceClient()
+def yodaTranslate(sentence):
 
-	if isinstance(text, six.binary_type):
-	    text = text.decode('utf-8')
+    # This function makes use of Google Language API to Yoda translate your sentence
 
-	# Instantiates a plain text document.
-	# [START migration_analyze_syntax]
-	document = types.Document(
-	    content=text,
-	    type=enums.Document.Type.PLAIN_TEXT)
+    sentence = cleanUpSentence(sentence)
 
-	# Detects syntax in the document. You can also analyze HTML with:
-	#   document.type == enums.Document.Type.HTML
-	tokens = client.analyze_syntax(document).tokens
+    payload = {
+      "encodingType": "UTF8",
+      "document": {
+        "type": "PLAIN_TEXT",
+        "content": sentence
+      }
+    }
+    response = requests.request("POST", googleNLPUrl, data=json.dumps(payload))
+    tokens = response.json()["tokens"]
 
-	# part-of-speech tags from enums.PartOfSpeech.Tag
-	pos_tag = ('UNKNOWN', 'ADJ', 'ADP', 'ADV', 'CONJ', 'DET', 'NOUN', 'NUM',
-	           'PRON', 'PRT', 'PUNCT', 'VERB', 'X', 'AFFIX')
+    index = -1
+    verbIndex = -1
+    sentenceObject = ''
+    sentenceSubject = ''
+    numOfWords = len(tokens)
+    for token in tokens:
+        index = index + 1
+        if (verbIndex != -1):
+            sentenceObject = sentenceObject + token["text"]["content"] + ' '
+        else:
+            sentenceSubject = sentenceSubject + token["text"]["content"] + ' '
+        if (token["partOfSpeech"]["tag"] == 'VERB' and verbIndex == -1):
+            verbIndex = index
 
-	i = -1
-	verbIndex = -1
-	sentenceObject = ''
-	sentenceSubject = ''
-	for token in tokens:
-		i = i + 1
-		if (verbIndex != -1):
-			sentenceObject = sentenceObject + '{} '.format(token.text.content)
-		else:
-			sentenceSubject = sentenceSubject + '{} '.format(token.text.content)
-		if (pos_tag[token.part_of_speech.tag] == 'VERB' and verbIndex == -1):
-			verbIndex = i
+    yodaSentence = sentenceObject + sentenceSubject
 
+    if(tokens[index]["partOfSpeech"]["tag"] == 'VERB'):
+        return 'Hmmm .. This sentence already seems yodified.'
+    if (numOfWords < 4):
+        return 'Yoda does not speak such short sentences'
+    if (verbIndex < 1):
+        return 'Does not seem to be a valid "Yodifyable" sentence.'
+    else:
+        resp = yodaSentence.capitalize()
+        return resp
 
-	yodaSentence = sentenceObject + sentenceSubject
-
-	resp = yodaSentence.capitalize()
-	return resp
+def cleanUpSentence(sentence):
+	sentence = sentence.replace("n't", " not")
+	sentence = sentence.replace("'ll", " will")
+	sentence = sentence.replace("'s,", " is")
+	sentence = sentence.replace("dont", "do not")
+	sentence = sentence.replace("wont", "will not")
