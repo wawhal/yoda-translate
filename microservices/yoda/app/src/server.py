@@ -229,6 +229,6 @@ def yodaTranslate(sentence):
         resp = yodaSentence.capitalize()
         return resp
     else:
-        return "Doesn't seem to be a valid sentence."
+        return 'Does not seem to be a valid "Yodifyable" sentence.'
 
 
