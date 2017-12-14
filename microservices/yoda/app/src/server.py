@@ -1,5 +1,6 @@
 from src import app
 from flask import jsonify, request
+from translate import yodaTranslate
 import requests
 import json
 import os
