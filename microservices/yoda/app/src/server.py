@@ -185,6 +185,7 @@ def sendSlackMessage(message, channel):
         "token": botAccessToken,
         "text": message,
         "channel": channel
+        "as_user": True
     }
     headers = {
         'content-type': "application/json",
