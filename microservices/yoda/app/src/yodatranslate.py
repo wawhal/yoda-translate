@@ -55,3 +55,4 @@ def cleanUpSentence(sentence):
 	sentence = sentence.replace("'s,", " is")
 	sentence = sentence.replace("dont", "do not")
 	sentence = sentence.replace("wont", "will not")
+	return sentence
