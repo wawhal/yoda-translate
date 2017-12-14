@@ -213,6 +213,7 @@ def yodaTranslate(sentence):
     verbIndex = -1
     sentenceObject = ''
     sentenceSubject = ''
+    numOfWords = len(tokens)
     for token in tokens:
         index = index + 1
         if (verbIndex != -1):
@@ -224,11 +225,15 @@ def yodaTranslate(sentence):
 
 
     yodaSentence = sentenceObject + sentenceSubject
-
-    if (verbIndex != -1):
+    if (numOfWords < 4)
+        return 'Yoda does not speak such short sentences'
+    if (numOfWords >=4 and verbIndex > numOfWords/2)
+        return 'Hmmm .. This sentence already seems yodified.'
+    if (verbIndex < 1 or ):
+        return 'Does not seem to be a valid "Yodifyable" sentence.'
+    else:
         resp = yodaSentence.capitalize()
         return resp
-    else:
-        return 'Does not seem to be a valid "Yodifyable" sentence.'
+        
 
 
