@@ -1,5 +1,7 @@
 # Yoda Translate Slack Bot
 
+![](https://media.giphy.com/media/3oxHQI3RRfRJoNcz4c/giphy.gif)
+
 This is a slack bot that will convert any sentence to a Yoda style sentence. For example:
 
 ```
