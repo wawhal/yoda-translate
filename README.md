@@ -19,7 +19,7 @@ To get this app running, you need to have:
 
 *The app will be **ready and working** in just 9 steps. This app requires several secret tokens to be set up. If you are stuck anywhere for more than 5 minutes, contact me at rishichandra.wawhal@gmail.com*
 
-1. Get this project (make sure you have the [hasura CLI tool](https://docs.hasura.io/0.15/manual/install-hasura-cli.html))
+1. Get this project.
 
 ```
 $ hasura quickstart rishi/yoda-translate-slackbot
@@ -31,7 +31,7 @@ $ hasura quickstart rishi/yoda-translate-slackbot
 $ hasura secret update slack.token '<slack_token>'
 ```
 
-3. Add a slash command to your workspace. Add the URL to be `https://yoda.<cluster-name>.hasura-app.io/echo`. Run `hasura cluster status` to get your cluster name.
+3. Add a slash command to your workspace (say /yodify). Add the URL to be `https://yoda.<cluster-name>.hasura-app.io/echo`. Run `hasura cluster status` to get your cluster name.
 4. Go to interactive components. Add the URL as `https://yoda.<cluster-name>.hasura-app.io/confirm`.
 5. Add a bot user. Name it whatever you want; preferably Yoda.
 6. Go to `OAuth and Permissions` and add the following permission scope.
@@ -56,3 +56,12 @@ $ hasura secret update google.api.key <google_api_key>
 $ git add . && git commit -m "First commit"
 $ git push hasura master
 ```
+
+## Usage
+
+Once the app is live, you can see it in action in any of your channels of your slack workspace. Just run `/yodify This app is so cool`. You will get your result :)
+
+## Modification
+
+If you want to make any changes to the code, the source code for this application lives in `microservices/yoda/app/src` directory. Modify whatever you wish to and repeat *step 9* of the deployment guide to see the changes live.
+
