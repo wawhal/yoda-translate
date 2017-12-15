@@ -9,7 +9,7 @@ def yodaTranslate(text):
 
     # This function makes use of Google Language API to Yoda translate your sentence
 
-    sentence = cleanUpSentence(text)
+    sentence = cleanUpSentence(text.lower())
     print ("sentence:"+sentence)
 
     payload = {
@@ -55,4 +55,5 @@ def cleanUpSentence(sentence):
 	sentence3 = sentence2.replace("'s,", " is")
 	sentence4 = sentence3.replace("dont", "do not")
 	sentence5 = sentence4.replace("wont", "will not")
-	return sentence5
+    sentence6 = sentence5.replace("cant", "can not")
+	return sentence6
