@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-googleNLPAPIKey = os.environ['NLP_API_KEY']
+googleNLPAPIKey = os.environ['GOOGLE_API_KEY']
 googleNLPUrl = 'https://language.googleapis.com/v1/documents:analyzeSyntax?key='+googleNLPAPIKey
 
 def yodaTranslate(text):

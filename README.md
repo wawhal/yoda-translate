@@ -1,55 +1,58 @@
-# base
+# Yoda Translate Slack Bot
 
-A blank template to be used as a starting point to build projects on Hasura. A "project" is a "gittable" directory in the file system, which captures all the information regarding clusters, services and migrations. It can also be used to keep source code for custom services that you write.
-
-## Files and Directories
-
-The project (a.k.a. project directory) has a particular directory structure and it has to be maintained strictly, else `hasura` cli would not work as expected. A representative project is shown below:
+This is a slack bot that will convert any sentence to a Yoda style sentence. For example:
 
 ```
-.
-├── hasura.yaml
-├── clusters.yaml
-├── conf
-│   ├── authorized-keys.yaml
-│   ├── auth.yaml
-│   ├── ci.yaml
-│   ├── domains.yaml
-│   ├── filestore.yaml
-│   ├── gateway.yaml
-│   ├── http-directives.conf
-│   ├── notify.yaml
-│   ├── postgres.yaml
-│   ├── routes.yaml
-│   └── session-store.yaml
-├── migrations
-│   ├── 1504788327_create_table_userprofile.down.yaml
-│   ├── 1504788327_create_table_userprofile.down.sql
-│   ├── 1504788327_create_table_userprofile.up.yaml
-│   └── 1504788327_create_table_userprofile.up.sql
-└── microservices 
-    ├── adminer
-    │   └── k8s.yaml
-    └── flask
-        ├── src/
-        ├── k8s.yaml
-        └── Dockerfile
+Input: This app is so cool.
+Output: So cool this app is.
 ```
 
-### `hasura.yaml`
+## Requirements
 
-This file contains some metadata about the project, namely a name, description and some keywords. Also contains `platformVersion` which says which Hasura platform version is compatible with this project.
+To get this app running, you need to have:
 
-### `clusters.yaml`
+1. [hasura CLI tool](https://docs.hasura.io/0.15/manual/install-hasura-cli.html)
+2. A project on [Google Cloud Platform](https://console.cloud.google.com/home/). You can create one for free :)
+3. Some Slack workspace
 
-Info about the clusters added to this project can be found in this file. Each cluster is defined by it's name allotted by Hasura. While adding the cluster to the project you are prompted to give an alias, which is just hasura by default. The `kubeContext` mentions the name of kubernetes context used to access the cluster, which is also managed by hasura. The `config` key denotes the location of cluster's metadata on the cluster itself. This information is parsed and cluster's metadata is appended while conf is rendered. `data` key is for holding custom variables that you can define.
+## Deployment Guide
 
-```yaml
-- name: h34-ambitious93-stg
-  alias: hasura
-  kubeContext: h34-ambitious93-stg
-  config:
-    configmap: controller-conf
-    namespace: hasura
-  data: null  
+*The app will be **ready and working** in just 9 steps. This app requires several secret tokens to be set up. If you are stuck anywhere for more than 5 minutes, contact me at rishichandra.wawhal@gmail.com*
+
+1. Get this project (make sure you have the [hasura CLI tool](https://docs.hasura.io/0.15/manual/install-hasura-cli.html))
+
+```
+$ hasura quickstart rishi/yoda-translate-slackbot
+```
+
+2. Make an app in your slack workspace. Copy your slack token and add it to your hasura project secrets so that you do not have to explicitly mention it in the code.
+
+```
+$ hasura secret update slack.token '<slack_token>'
+```
+
+3. Add a slash command to your workspace. Add the URL to be `https://yoda.<cluster-name>.hasura-app.io/echo`. Run `hasura cluster status` to get your cluster name.
+4. Go to interactive components. Add the URL as `https://yoda.<cluster-name>.hasura-app.io/confirm`.
+5. Add a bot user. Name it whatever you want; preferably Yoda.
+6. Go to `OAuth and Permissions` and add the following permission scope.
+
+![Scope](https://github.com/coco98/python-slack-bot/raw/master/readme-assets/scope.png)
+
+7. Scroll up and install the app to the workspace. Once you install, copy the Bot-Access-Token and add it to your secrets.
+
+```
+$ hasura secret update bot.access.token '<bot_access_token>'
+```
+
+8. Finally, enable the  [Google Cloud Natural Language API](https://console.cloud.google.com/home/) for your project and get your API key. Add this to your secrets. Check how to [get API key](https://support.google.com/cloud/answer/6158862?hl=en)
+
+```
+$ hasura secret update google.api.key <google_api_key>
+```
+
+9. Just push this project to your Hasura cluster and you are set. Run the following from project directory.
+
+```
+$ git add . && git commit -m "First commit"
+$ git push hasura master
 ```
