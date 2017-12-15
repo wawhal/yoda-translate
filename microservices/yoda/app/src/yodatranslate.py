@@ -5,11 +5,11 @@ import os
 googleNLPAPIKey = os.environ['NLP_API_KEY']
 googleNLPUrl = 'https://language.googleapis.com/v1/documents:analyzeSyntax?key='+googleNLPAPIKey
 
-def yodaTranslate(sentence):
+def yodaTranslate(text):
 
     # This function makes use of Google Language API to Yoda translate your sentence
 
-    sentence = cleanUpSentence(sentence)
+    sentence = cleanUpSentence(text)
     print ("sentence:"+sentence)
 
     payload = {
@@ -50,9 +50,9 @@ def yodaTranslate(sentence):
         return resp
 
 def cleanUpSentence(sentence):
-	sentence = sentence.replace("n't", " not")
-	sentence = sentence.replace("'ll", " will")
-	sentence = sentence.replace("'s,", " is")
-	sentence = sentence.replace("dont", "do not")
-	sentence = sentence.replace("wont", "will not")
-	return sentence
+	sentence1 = sentence.replace("n't", " not")
+	sentence2 = sentence1.replace("'ll", " will")
+	sentence3 = sentence2.replace("'s,", " is")
+	sentence4 = sentence3.replace("dont", "do not")
+	sentence5 = sentence4.replace("wont", "will not")
+	return sentence5
