@@ -1,5 +1,10 @@
-description: A ready to deploy slack bot for Yoda translation.
-keywords: slack, bot, slackbot, yoda, chatbot, nlp
-media: {}
+description: A ready to deploy slack bot for Yoda translation. The bot takes a sentence and converts it to yoda speech. 
+keywords: slack, bot, slackbot, yoda, chatbot, nlp, google natural language api
+gitUrl: https://github.com/wawhal/yoda-translate
+media:
+  images: 
+  - https://media.giphy.com/media/xUOxeSyC5CPiGLshAQ/giphy.gif
 name: slack-bot-yoda
 platformVersion: v0.15.3
+
+
