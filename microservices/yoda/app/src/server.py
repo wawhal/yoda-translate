@@ -1,5 +1,5 @@
 from src import app
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 from . import yodatranslate
 import requests
 import json
@@ -15,7 +15,7 @@ chatUrl = "https://slack.com/api/chat.postMessage"
 
 @app.route('/', methods=['GET'])
 def test():
-    return "Slackbot is running."
+    return render_template('index.html')
 
 @app.route('/echo', methods=['POST'])
 def event():
