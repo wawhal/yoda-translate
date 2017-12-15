@@ -54,6 +54,6 @@ def cleanUpSentence(sentence):
 	sentence2 = sentence1.replace("'ll", " will")
 	sentence3 = sentence2.replace("'s,", " is")
 	sentence4 = sentence3.replace("dont", "do not")
-	sentence5 = sentence4.replace("wont", "will not")
+    sentence5 = sentence4.replace("wont", "will not")
     sentence6 = sentence5.replace("cant", "can not")
-	return sentence6
+    return sentence6
