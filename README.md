@@ -19,12 +19,12 @@ To get this app running, you need to have:
 
 ## Deployment Guide
 
-*The app will be **ready and working** in just 9 steps. This app requires several secret tokens to be set up. If you are stuck anywhere for more than 5 minutes, contact me at rishichandra.wawhal@gmail.com*
+*The app will be **ready and working** in just 9 steps. This app requires several secret tokens to be set up. If you are stuck anywhere for more than 5 minutes, just raise an issue in the git repo, I will get to it asap*
 
 1. Get this project.
 
 ```
-$ hasura quickstart rishi/yoda-translate-slackbot
+$ hasura quickstart jaison/yoda-translate-slackbot
 ```
 
 2. Make an app in your slack workspace. Copy your slack token and add it to your hasura project secrets so that you do not have to explicitly mention it in the code.
