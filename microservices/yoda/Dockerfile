@@ -9,7 +9,6 @@ COPY app/src/requirements.txt /tmp/requirements.txt
 RUN pip3 install -r /tmp/requirements.txt
 
 COPY app /usr/src/app
-RUN export GOOGLE_APPLICATION_CREDENTIALS="/usr/src/app/conf/project-secret.json"
 
 # App port number is configured through the gunicorn config file
 CMD ["gunicorn", "--config", "./conf/gunicorn_config.py", "src:app"]
