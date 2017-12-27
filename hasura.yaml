@@ -5,5 +5,5 @@ keywords: slack, bot, slackbot, yoda, chatbot, nlp, google natural language api
 media:
   images:
   - https://media.giphy.com/media/xUOxeSyC5CPiGLshAQ/giphy.gif
-name: slack-yoda-translate
+name: slack-bot-yoda
 platformVersion: v0.15.3
