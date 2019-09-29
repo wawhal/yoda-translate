@@ -68,5 +68,4 @@ Once the app is live, you can see it in action in any of your channels of your s
 If you want to make any changes to the code, the source code for this application lives in `microservices/yoda/app/src` directory. Modify whatever you wish to and repeat *step 9* of the deployment guide to see the changes live.
 
 ## Support
-
-If you happen to get stuck anywhere, feel free to mail me at jaisontj92@gmail.com. Also, if you find a bug or an error, you can raise an issue [here](https://github.com/wawhal/yoda-translate).
+If you find a bug or an error, you can raise an issue [here](https://github.com/wawhal/yoda-translate).
